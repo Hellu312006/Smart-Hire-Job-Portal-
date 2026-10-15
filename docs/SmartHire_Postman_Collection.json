@@ -1,0 +1,215 @@
+{
+  "info": {
+    "name": "SmartHire Recruitment Platform REST APIs",
+    "description": "Complete Postman Collection for testing SmartHire Enterprise Recruitment Platform with Spring Boot 3, MySQL 8, and MongoDB 7.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login - Candidate (Alex Mercer)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"candidate@example.com\",\n  \"password\": \"Candidate@123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Login - Recruiter (Sarah Jenkins)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"recruiter@techcorp.com\",\n  \"password\": \"Recruiter@123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Login - Administrator",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@smarthire.com\",\n  \"password\": \"Admin@123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Get Current Authenticated User",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Jobs",
+      "item": [
+        {
+          "name": "Search Active Jobs",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/jobs?keyword=Java&location=San Francisco&page=0&size=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs"],
+              "query": [
+                { "key": "keyword", "value": "Java" },
+                { "key": "location", "value": "San Francisco" },
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Job by ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/jobs/1", "host": ["{{baseUrl}}"], "path": ["jobs", "1"] }
+          }
+        },
+        {
+          "name": "Get Featured Jobs",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/jobs/featured?limit=6", "host": ["{{baseUrl}}"], "path": ["jobs", "featured"] }
+          }
+        },
+        {
+          "name": "Create Job (Recruiter Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Distributed Systems Engineer\",\n  \"description\": \"Architect event-driven pipelines.\",\n  \"requirements\": \"Java, Kafka, Spring Cloud\",\n  \"location\": \"San Francisco, CA\",\n  \"minSalary\": 130000,\n  \"maxSalary\": 175000,\n  \"employmentType\": \"FULL_TIME\",\n  \"experienceLevel\": \"SENIOR\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/jobs", "host": ["{{baseUrl}}"], "path": ["jobs"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Candidate Endpoints",
+      "item": [
+        {
+          "name": "Get Candidate Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/candidate/dashboard", "host": ["{{baseUrl}}"], "path": ["candidate", "dashboard"] }
+          }
+        },
+        {
+          "name": "Get Extended Profile (MongoDB)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/candidate/profile", "host": ["{{baseUrl}}"], "path": ["candidate", "profile"] }
+          }
+        },
+        {
+          "name": "Get Search History (MongoDB)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/candidate/search-history", "host": ["{{baseUrl}}"], "path": ["candidate", "search-history"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Recruiter Endpoints",
+      "item": [
+        {
+          "name": "Get Recruiter Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/recruiter/dashboard", "host": ["{{baseUrl}}"], "path": ["recruiter", "dashboard"] }
+          }
+        },
+        {
+          "name": "Get Recruiter Applications",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/recruiter/applications", "host": ["{{baseUrl}}"], "path": ["recruiter", "applications"] }
+          }
+        },
+        {
+          "name": "Update Application Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"SHORTLISTED\",\n  \"comment\": \"Candidate profile matches job criteria.\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/recruiter/applications/1/status", "host": ["{{baseUrl}}"], "path": ["recruiter", "applications", "1", "status"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Endpoints",
+      "item": [
+        {
+          "name": "Get Admin Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/dashboard", "host": ["{{baseUrl}}"], "path": ["admin", "dashboard"] }
+          }
+        },
+        {
+          "name": "Get User Directory",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/users?page=0&size=15", "host": ["{{baseUrl}}"], "path": ["admin", "users"] }
+          }
+        },
+        {
+          "name": "Get Live MongoDB Audit Logs",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/logs?page=0&size=20", "host": ["{{baseUrl}}"], "path": ["admin", "logs"] }
+          }
+        }
+      ]
+    }
+  ]
+}
