@@ -56,3 +56,6 @@ Thumbs.db
 # Environment & Uploads
 .env
 uploads/
+backend/data/
+*.mv.db
+*.trace.db
