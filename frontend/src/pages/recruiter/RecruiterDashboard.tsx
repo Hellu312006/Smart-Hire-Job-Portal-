@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { RecruiterDashboardDto } from '../../types';
 import { recruiterApi, fileHelpers } from '../../services/api';
 import { StatusBadge } from '../../components/StatusBadge';
+import { PageLoader, TopProgressBar } from '../../components/Loading';
 import {
   Briefcase,
   Users,
@@ -47,10 +48,13 @@ export const RecruiterDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="p-8 text-center">
-        <div className="w-10 h-10 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-sm font-semibold text-slate-500">Loading recruiter analytics...</p>
-      </div>
+      <>
+        <TopProgressBar />
+        <PageLoader
+          message="Loading recruiter analytics..."
+          subMessage="Compiling pipeline metrics, recent applicant activity, and conversion data"
+        />
+      </>
     );
   }
 

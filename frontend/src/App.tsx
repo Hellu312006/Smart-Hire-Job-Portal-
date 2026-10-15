@@ -38,15 +38,18 @@ import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { AdminUsers } from './pages/admin/AdminUsers';
 import { AdminActivityLogs } from './pages/admin/AdminActivityLogs';
 
+import { PageLoader, TopProgressBar } from './components/Loading';
+
 // Protected Route Guard
 const ProtectedRoute: React.FC<{ allowedRoles: Role[] }> = ({ allowedRoles }) => {
   const { isAuthenticated, role, loading } = useAuth();
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-10 h-10 border-4 border-primary-600 border-t-transparent rounded-full animate-spin" />
-      </div>
+      <>
+        <TopProgressBar />
+        <PageLoader message="Authenticating session..." subMessage="Verifying role permissions with SmartHire security" />
+      </>
     );
   }
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { TopProgressBar } from '../components/Loading';
 import { authApi } from '../services/api';
 import { Briefcase, Lock, Mail, AlertCircle, Loader2, UserCheck, Shield, Building } from 'lucide-react';
 
@@ -45,7 +46,8 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 sm:p-10 rounded-3xl shadow-card border border-slate-200">
+      <div className="max-w-md w-full space-y-8 bg-white p-8 sm:p-10 rounded-3xl shadow-card border border-slate-200 relative overflow-hidden">
+        {loading && <TopProgressBar />}
         <div className="text-center space-y-2">
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-primary-900 to-primary-600 flex items-center justify-center text-white mx-auto shadow-md">
             <Briefcase className="w-6 h-6" />

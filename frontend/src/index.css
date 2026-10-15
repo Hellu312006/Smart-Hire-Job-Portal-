@@ -36,3 +36,63 @@
   transform: translateY(-2px);
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
 }
+
+/* Professional Real-World Shimmer Skeleton Effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-effect {
+  background: linear-gradient(
+    90deg,
+    #F1F5F9 0%,
+    #E2E8F0 40%,
+    #F8FAFC 60%,
+    #F1F5F9 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* Sonar Ripple Pulse for Loading Avatar */
+@keyframes sonar {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+.animate-sonar {
+  animation: sonar 2s ease-in-out infinite;
+}
+
+/* Sliding Top Progress Bar */
+@keyframes slide-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-progress-slide {
+  animation: slide-progress 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+

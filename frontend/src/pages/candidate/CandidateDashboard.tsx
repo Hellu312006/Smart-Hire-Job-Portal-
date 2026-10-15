@@ -5,6 +5,7 @@ import { CandidateDashboardDto } from '../../types';
 import { candidateApi, fileHelpers } from '../../services/api';
 import { StatusBadge } from '../../components/StatusBadge';
 import { JobCard } from '../../components/JobCard';
+import { PageLoader, TopProgressBar } from '../../components/Loading';
 import {
   Briefcase,
   CheckCircle2,
@@ -40,10 +41,13 @@ export const CandidateDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="p-8 text-center">
-        <div className="w-10 h-10 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-sm font-semibold text-slate-500">Loading your candidate workspace...</p>
-      </div>
+      <>
+        <TopProgressBar />
+        <PageLoader
+          message="Loading candidate workspace..."
+          subMessage="Fetching your active applications, interview updates, and tailored recommendations"
+        />
+      </>
     );
   }
 

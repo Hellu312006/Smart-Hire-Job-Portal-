@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AdminDashboardDto } from '../../types';
 import { adminApi } from '../../services/api';
+import { PageLoader, TopProgressBar } from '../../components/Loading';
 import {
   Users,
   Building2,
@@ -44,10 +45,13 @@ export const AdminDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="p-8 text-center">
-        <div className="w-10 h-10 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-sm font-semibold text-slate-500">Loading system administration metrics...</p>
-      </div>
+      <>
+        <TopProgressBar />
+        <PageLoader
+          message="Loading system administration metrics..."
+          subMessage="Streaming audit telemetry, user distributions, and platform health stats"
+        />
+      </>
     );
   }
 

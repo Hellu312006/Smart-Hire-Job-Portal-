@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { jobApi, candidateApi, fileHelpers } from '../services/api';
 import { StatusBadge } from '../components/StatusBadge';
 import { ApplyModal } from '../components/ApplyModal';
+import { PageLoader, TopProgressBar } from '../components/Loading';
 import {
   MapPin,
   DollarSign,
@@ -81,10 +82,13 @@ export const JobDetailsPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="max-w-5xl mx-auto px-4 py-16 text-center">
-        <div className="w-12 h-12 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-        <p className="text-sm font-semibold text-slate-500">Loading position details...</p>
-      </div>
+      <>
+        <TopProgressBar />
+        <PageLoader
+          message="Loading position details..."
+          subMessage="Retrieving verified role requirements, company info, and compensation details"
+        />
+      </>
     );
   }
 

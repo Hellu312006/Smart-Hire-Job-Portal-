@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { JobDto, EmploymentType, ExperienceLevel, PagedResponse } from '../types';
 import { jobApi } from '../services/api';
 import { JobCard } from '../components/JobCard';
+import { TopProgressBar, SkeletonJobCard } from '../components/Loading';
 import {
   Search,
   MapPin,
@@ -268,21 +269,14 @@ export const JobListingsPage: React.FC = () => {
             </div>
           </div>
 
+          {/* Top Progress Bar when fetching */}
+          {loading && <TopProgressBar />}
+
           {/* Job List Cards */}
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3, 4, 5, 6].map((n) => (
-                <div key={n} className="h-64 rounded-2xl bg-white p-5 border border-slate-200 animate-pulse space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-slate-200 rounded-xl" />
-                    <div className="space-y-2 flex-1">
-                      <div className="h-4 bg-slate-200 rounded w-3/4" />
-                      <div className="h-3 bg-slate-200 rounded w-1/2" />
-                    </div>
-                  </div>
-                  <div className="h-4 bg-slate-200 rounded w-full" />
-                  <div className="h-4 bg-slate-200 rounded w-2/3" />
-                </div>
+                <SkeletonJobCard key={n} />
               ))}
             </div>
           ) : data && data.content.length > 0 ? (
