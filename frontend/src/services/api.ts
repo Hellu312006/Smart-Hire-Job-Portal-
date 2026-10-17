@@ -16,8 +16,10 @@ import {
   ApplicationDto
 } from '../types';
 
+export const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) || '/api';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -232,20 +234,20 @@ export const companyApi = {
 export const fileHelpers = {
   getAvatarUrl: (user?: { profileImagePath?: string | null; fullName?: string }): string => {
     if (user?.profileImagePath) {
-      return `/api/files/download/${user.profileImagePath}`;
+      return `${API_BASE_URL}/files/download/${user.profileImagePath}`;
     }
     const name = encodeURIComponent(user?.fullName || 'User');
-    return `/api/files/placeholder/avatar/${name}`;
+    return `${API_BASE_URL}/files/placeholder/avatar/${name}`;
   },
   getCompanyLogoUrl: (company?: { logoPath?: string | null; name?: string }): string => {
     if (company?.logoPath) {
-      return `/api/files/download/${company.logoPath}`;
+      return `${API_BASE_URL}/files/download/${company.logoPath}`;
     }
     const name = encodeURIComponent(company?.name || 'Company');
-    return `/api/files/placeholder/logo/${name}`;
+    return `${API_BASE_URL}/files/placeholder/logo/${name}`;
   },
   getResumeDownloadUrl: (applicationId: number): string => {
-    return `/api/files/applications/${applicationId}/resume`;
+    return `${API_BASE_URL}/files/applications/${applicationId}/resume`;
   },
 };
 
